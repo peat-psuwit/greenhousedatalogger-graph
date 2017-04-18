@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import {Card,CardText,Checkbox} from 'react-mdc-web/lib';
+import {Cell,Checkbox} from 'react-mdc-web/lib';
 
-export default Class SensorItem extends Component {
+export default class SensorItem extends Component {
 	render() {
-		return
-		<Card> 
-		    <CardText>
-				<Checkbox 
-					onChange={({target: {checked}}) =>
-						{this.setState({checked})
-					}}
-					checked={this.state.checked}
-				/>
-				<label>{this.props.sensorInfo.id}</label>
-		    </CardText> 
-		</Card>
+		return <Cell col={4} > 
+			<Checkbox 
+				onChange={({target: {checked}}) =>
+					(null /* TODO */)
+				}
+				checked={true}
+			/>
+			<label>{this.props.sensorInfo.id}</label>
+		</Cell>
 	}
 }
