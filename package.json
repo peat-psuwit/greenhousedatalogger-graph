@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cldr-data": "^31.0.2",
+    "globalize": "^1.2.3",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
-    "react-mdc-web": "^0.10.1"
+    "react-mdc-web": "^0.10.1",
+    "react-widgets": "^3.4.6"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
