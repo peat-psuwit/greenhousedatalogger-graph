@@ -33,9 +33,10 @@ class SensorStore extends ReduceStore {
                 };
 
             case ActionTypes.SENSOR_LIST_RECEIVED:
-                var newState = {...oldState,
-                    sensors: oldState.sensors.concat(action.sensors)
-                };
+                var newState = {...oldState};
+
+                if (action.sensors)
+                    newState.sensors = oldState.sensors.concat(action.sensors);
 
                 if (action.nextPageToken == lastNextPageToken) {
                     newState.loading = false;
