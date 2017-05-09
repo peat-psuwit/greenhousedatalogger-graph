@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AppContainer from './AppContainer.js';
 import './index.css';
 import 'material-components-web/dist/material-components-web.min.css';
 
 ReactDOM.render(
-  <App />,
+  <AppContainer />,
   document.getElementById('root')
 );
