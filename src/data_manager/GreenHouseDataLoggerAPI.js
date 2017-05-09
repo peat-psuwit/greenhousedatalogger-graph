@@ -18,8 +18,9 @@ const SensorAPI = {
         if (nextPageToken !== undefined)
             url.searchParams.set('cursor', nextPageToken);
 
-        return fetchJsonp(url.href)
-            .then(convertToJson);
+        return fetchJsonp(url.href, {
+            timeout: 30000
+        }).then(convertToJson);
     }
 };
 
@@ -33,8 +34,9 @@ const GhRecordingAPI = {
         if (nextPageToken !== undefined)
             url.searchParams.set('cursor', nextPageToken);
 
-        return fetchJsonp(url.href)
-            .then(convertToJson);
+        return fetchJsonp(url.href, {
+            timeout: 30000
+        }).then(convertToJson);
     }
 };
 
