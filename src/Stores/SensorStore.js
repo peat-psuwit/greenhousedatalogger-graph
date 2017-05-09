@@ -12,7 +12,7 @@ var lastNextPageToken = null;
 class SensorStore extends ReduceStore {
     getInitialState() {
         setTimeout(function() {
-            Action.requestSensorList();
+            Actions.requestSensorList();
         }, 0);
 
         return {
