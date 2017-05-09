@@ -6,7 +6,7 @@ export default class TitleBar extends Component {
 		return <Toolbar fixed>
 				  <ToolbarRow>
 					<ToolbarSection align="start">
-					  <ToolbarTitle>Greenhouse Sensor</ToolbarTitle>
+					  <ToolbarTitle>Greenhouse Data Grapher</ToolbarTitle>
 					</ToolbarSection>
 				  </ToolbarRow>
 				</Toolbar>
