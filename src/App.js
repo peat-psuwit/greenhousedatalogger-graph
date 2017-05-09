@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Content } from 'react-mdc-web/lib';
+
+import TitleBar from './Components/TitleBar.js'
+import Selector from './Components/Selector.js'
+
 import './App.css';
-import OptionBar from './Components/OptionBar.js'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <div className="App-intro">
-            <OptionBar {...this.props}/>
-        </div>
+        <div>
+          <TitleBar />
+
+          <Content className="page-wrapper">
+            <Selector {...this.props} />
+          </Content>
       </div>
     );
   }
