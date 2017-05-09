@@ -38,7 +38,7 @@ class SensorStore extends ReduceStore {
                 if (action.sensors)
                     newState.sensors = oldState.sensors.concat(action.sensors);
 
-                if (action.nextPageToken == lastNextPageToken) {
+                if (action.nextPageToken === lastNextPageToken) {
                     newState.loading = false;
                     newState.dataComplete = true;
                 }

@@ -12,10 +12,10 @@ const SensorAPI = {
     list(limit, nextPageToken) {
         var url = new URL(SENSOR_URL + '/sensor');
 
-        if (limit != undefined)
+        if (limit !== undefined)
             url.searchParams.set('limit', limit.toString(10));
 
-        if (nextPageToken != undefined)
+        if (nextPageToken !== undefined)
             url.searchParams.set('cursor', nextPageToken);
 
         return fetchJsonp(url.href)
@@ -27,10 +27,10 @@ const GhRecordingAPI = {
     listData(limit, nextPageToken) {
         var url = new URL(GHRECORDING_URL + '/GreenhouseRecordList');
 
-        if (limit != undefined)
+        if (limit !== undefined)
             url.searchParams.set('limit', limit.toString(10));
 
-        if (nextPageToken != undefined)
+        if (nextPageToken !== undefined)
             url.searchParams.set('cursor', nextPageToken);
 
         return fetchJsonp(url.href)
