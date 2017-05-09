@@ -21,9 +21,7 @@ const SensorAPI = {
         return fetchJsonp(url.href)
             .then(convertToJson);
     }
-}
-
-export SensorAPI;
+};
 
 const GhRecordingAPI = {
     listData(limit, nextPageToken) {
@@ -38,6 +36,6 @@ const GhRecordingAPI = {
         return fetchJsonp(url.href)
             .then(convertToJson);
     }
-}
+};
 
-export GhRecordingAPI;
+export { SensorAPI, GhRecordingAPI };
