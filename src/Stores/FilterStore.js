@@ -1,27 +1,42 @@
 import {ReduceStore} from 'flux/utils';
+import Immutable from 'immutable';
+import moment from 'moment';
+
 import ActionTypes from './AppActionTypes.js';
 import dispatcher from './AppDispatcher.js';
 
-import moment from 'moment';
+moment.locale('th');
 
 class FilterStore extends ReduceStore {
     getInitialState() {
-        return {
-            sensor: [],
+        return Immutable.Map({
+            sensors: Immutable.Set(),
             startDate: moment(),
             endDate: moment(),
-            propertyWanted: null
-        };
+            selectedField: null
+        });
     }
 
-    reduce(oldState, action) {
+    reduce(state, action) {
         switch (action.type) {
-            case ActionTypes.SET_FILTER:
-                var state = {...oldState, ...action.filter};
+            case ActionTypes.SET_FILTER_ADD_SENSOR:
+                return state.update('sensors', (sensors) => sensors.add(action.sensor))
+
+            case ActionTypes.SET_FILTER_REMOVE_SENSOR:
+                return state.update('sensors', (sensors) => sensors.remove(action.sensor));
+
+            case ActionTypes.SET_FILTER_START_DATE:
+                return state.set('startDate', moment(action.startDate));
                 //TODO: check with SensorDataRangeStore
-                return state;
+
+            case ActionTypes.SET_FILTER_END_DATE:
+                return state.set('endDate', moment(action.endDate));
+
+            case ActionTypes.SET_FILTER_SELECTED_FIELD:
+                return state.set('selectedField', action.selectedField);
+
             default:
-                return oldState;
+                return state;
         }
     }
 }

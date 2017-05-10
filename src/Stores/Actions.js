@@ -2,10 +2,38 @@ import ActionTypes from './AppActionTypes.js';
 import dispatcher from './AppDispatcher.js';
 
 const Actions = {
-    setFilter(filter) {
+    setFilterAddSensor(sensor) {
         dispatcher.dispatch({
-            type: ActionTypes.SET_FILTER,
-            filter
+            type: ActionTypes.SET_FILTER_ADD_SENSOR,
+            sensor
+        });
+    },
+
+    setFilterRemoveSensor(sensor) {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_REMOVE_SENSOR,
+            sensor
+        });
+    },
+
+    setFilterStartDate(startDate) {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_START_DATE,
+            startDate
+        });
+    },
+
+    setFilterEndDate(endDate) {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_END_DATE,
+            endDate
+        });
+    },
+
+    setFilterSelectedField(selectedField) {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_SELECTED_FIELD,
+            selectedField
         });
     },
 

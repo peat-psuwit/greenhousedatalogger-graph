@@ -11,15 +11,11 @@ moment.locale('th');
 
 export default class OptionBar extends Component {
 	onStartDateChanged(dateMoment) {
-		Actions.setFilter({
-			startDate: dateMoment
-		});
+		Actions.setFilterStartDate(dateMoment);
 	}
 
 	onEndDateChanged(dateMoment) {
-		Actions.setFilter({
-			endDate: dateMoment
-		});
+		Actions.setFilterEndDate(dateMoment);
 	}
 
 	render() {
@@ -31,7 +27,7 @@ export default class OptionBar extends Component {
 						dateFormat="DD-MM-YYYY HH:mm:ss"
 						forceValidDate={true}
 						updateOnDateClick={true}
-						value={this.props.filter.startDate}
+						value={this.props.filter.get('startDate')}
 						onChange={(dateString, { dateMoment, timestamp}) => {this.onStartDateChanged(dateMoment)}}
 						style={{
 							"color": "black",
@@ -56,7 +52,7 @@ export default class OptionBar extends Component {
 						dateFormat="DD-MM-YYYY HH:mm:ss"
 						forceValidDate={true}
 						updateOnDateClick={true}
-						value={this.props.filter.endDate}
+						value={this.props.filter.get('endDate')}
 						onChange={(dateString, { dateMoment, timestamp}) => {this.onEndDateChanged(dateMoment)}}
 						style={{
 							"color": "black",

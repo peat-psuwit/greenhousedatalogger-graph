@@ -15,43 +15,43 @@ class SensorStore extends ReduceStore {
             Actions.requestSensorList();
         }, 0);
 
-        return {
+        return Immutable.Map({
             loading: false,
             dataComplete: false,
             error: null,
             sensors: Immutable.List()
-        };
+        });
     }
 
-    reduce(oldState, action) {
+    reduce(state, action) {
         switch (action.type) {
             case ActionTypes.SENSOR_LIST_REQUEST:
                 SensorDataManager.requestSensorList(undefined, undefined);
-                return {...oldState,
+                return state.merge({
                     loading: true,
-                    sensors: Immutable.List() //This has to be reset
-                };
+                    sensors: Immutable.List()
+                });
 
             case ActionTypes.SENSOR_LIST_RECEIVED:
-                var newState = {...oldState};
+                return state.withMutations(function (state) {
+                    if (action.sensors)
+                        state.update('sensors', (sensors) => sensors.concat(action.sensors));
 
-                if (action.sensors)
-                    newState.sensors = oldState.sensors.concat(action.sensors);
-
-                if (action.nextPageToken === lastNextPageToken) {
-                    newState.loading = false;
-                    newState.dataComplete = true;
-                }
-                else {
-                    newState.loading = true;
-                    SensorDataManager.requestSensorList(undefined, action.nextPageToken);
-                    lastNextPageToken = action.nextPageToken;
-                }
-
-                return newState;
+                    if (action.nextPageToken === lastNextPageToken) {
+                        state.merge({
+                            loading: false,
+                            dataComplete: true
+                        });
+                    }
+                    else {
+                        state.set('loading', true);
+                        SensorDataManager.requestSensorList(undefined, action.nextPageToken);
+                        lastNextPageToken = action.nextPageToken;
+                    }
+                });
 
             default:
-                return oldState;
+                return state;
         }
     }
 }
