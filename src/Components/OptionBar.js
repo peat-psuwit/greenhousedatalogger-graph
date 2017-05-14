@@ -27,7 +27,7 @@ export default class OptionBar extends Component {
 						dateFormat="DD-MM-YYYY HH:mm:ss"
 						forceValidDate={true}
 						updateOnDateClick={true}
-						value={this.props.filter.get('startDate')}
+						value={this.props.filter.getStartDate()}
 						onChange={(dateString, { dateMoment, timestamp}) => {this.onStartDateChanged(dateMoment)}}
 						style={{
 							"color": "black",
@@ -52,7 +52,7 @@ export default class OptionBar extends Component {
 						dateFormat="DD-MM-YYYY HH:mm:ss"
 						forceValidDate={true}
 						updateOnDateClick={true}
-						value={this.props.filter.get('endDate')}
+						value={this.props.filter.getEndDate()}
 						onChange={(dateString, { dateMoment, timestamp}) => {this.onEndDateChanged(dateMoment)}}
 						style={{
 							"color": "black",

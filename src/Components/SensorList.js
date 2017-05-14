@@ -29,7 +29,7 @@ export default class SensorList extends Component {
 					sensors.get('sensors').map(function(sensor, i){
 						return <SensorItem
 									sensorInfo={sensor}
-									selected={filter.get('sensors').has(sensor.id)}
+									selected={filter.getSensors().has(sensor.id)}
 									onSelectionChanged={(checked) => onSelectionChanged(sensor.id, checked)}
 									key={sensor.id}
 								/>
