@@ -56,6 +56,27 @@ const Actions = {
             type: ActionTypes.SENSOR_LIST_ERROR,
             error
         })
+    },
+
+    requestSensorData() {
+        dispatcher.dispatch({
+            type: ActionTypes.SENSOR_DATA_REQUEST
+        });
+    },
+
+    receivedSensorData(sensorData, nextPageToken) {
+        dispatcher.dispatch({
+            type: ActionTypes.SENSOR_DATA_RECEIVED,
+            sensorData,
+            nextPageToken
+        })
+    },
+
+    errorInSensorDataRequest(error) {
+        dispatcher.dispatch({
+            type: ActionTypes.SENSOR_DATA_ERROR,
+            error
+        })
     }
 }
 
