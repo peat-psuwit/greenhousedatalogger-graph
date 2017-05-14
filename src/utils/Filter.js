@@ -32,20 +32,6 @@ export default class Filter {
         return this._selectedField;
     }
 
-    filter(sensorData) {
-        return sensorData.toSeq()
-            .filter((value, key) => this._sensors.has(key))
-            .map(currentSensorData => currentSensorData.toSeq()
-                .filter((value, key) =>
-                    (this._startDate.isBefore(value.timestamp) &&
-                    this._endDate.isAfter(value.timestamp))
-                ).map((value, key) => ({
-                    x: value.timestamp,
-                    y: value[this._selectedField]
-                }))
-            );
-    }
-
     addSensor(sensor) {
         if (this._sensors.has(sensor))
             return this;
