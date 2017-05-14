@@ -7,7 +7,7 @@ import Filter from '../utils/Filter.js';
 
 class FilterStore extends ReduceStore {
     getInitialState() {
-        return Filter.newInstance();
+        return Filter.newInstance().setSelectedField('temperature');
     }
 
     reduce(state, action) {
