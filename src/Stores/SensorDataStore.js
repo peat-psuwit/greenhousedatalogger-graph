@@ -22,7 +22,7 @@ class SensorDataStore extends ReduceStore {
     reduce(state, action) {
         switch (action.type) {
             case ActionTypes.SENSOR_DATA_REQUEST:
-                GhRecordingDataManager.listData(undefined, undefined);
+                GhRecordingDataManager.requestSensorData(undefined, undefined);
                 lastNextPageToken = null;
                 return PartiallyLoadObject.newInstance(Immutable.Map()).setLoading(true);
 
