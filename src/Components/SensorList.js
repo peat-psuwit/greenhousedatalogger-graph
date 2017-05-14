@@ -17,16 +17,24 @@ export default class SensorList extends Component {
 		var sensors = this.props.sensors;
 		var filter = this.props.filter;
 
-		if (sensors.get('error')) {
+		if (sensors.getError()) {
 			//TODO: proper error
 			return <div>Error!</div>
 		}
 
 		return (
 			<div>
+				{function() {
+					if (sensors.isLoading())
+						//TODO: proper spinner
+						return <div>Loading</div>
+					else
+						return <div></div>
+				} () }
+
 				<Grid>
 				{
-					sensors.get('sensors').map(function(sensor, i){
+					sensors.getValue().map(function(sensor, i){
 						return <SensorItem
 									sensorInfo={sensor}
 									selected={filter.getSensors().has(sensor.id)}
@@ -36,14 +44,6 @@ export default class SensorList extends Component {
 					}).toJS()
 				}
 				</Grid>
-
-				{function() {
-					if (sensors.get('loading'))
-						//TODO: proper spinner
-						return <div>Loading</div>
-					else
-						return <div></div>
-				} () }
 			</div>
 		);
 	}
