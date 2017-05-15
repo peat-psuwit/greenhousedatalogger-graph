@@ -42,18 +42,18 @@ export default class Grapher extends Component {
             )
         };
 
-        return (
-            <Line
-                data={data}
+        var options = {
+            scales: {
+                xAxes: [{
+                    type: "time"
+                }]
+            },
+            maintainAspectRatio: false
+        };
 
-                options={{
-                    scales: {
-                        xAxes: [{
-                            type: "time"
-                        }]
-                    }
-                }}
-            />
+        return (
+            <Line data={data} options={options}
+                height={320} />
         );
     }
 }
