@@ -6,10 +6,11 @@ import App from './App.js';
 import filterStore from './Stores/FilterStore.js';
 import sensorStore from './Stores/SensorStore.js';
 import sensorDataStore from './Stores/SensorDataStore.js';
+import sensorDataRangeStore from './Stores/SensorDataRangeStore.js';
 
 class AppContainer extends Component {
   static getStores() {
-    return [filterStore, sensorStore, sensorDataStore];
+    return [filterStore, sensorStore, sensorDataStore, sensorDataRangeStore];
   }
 
   static calculateState(prevState) {
@@ -17,6 +18,7 @@ class AppContainer extends Component {
       filter: filterStore.getState(),
       sensors: sensorStore.getState(),
       sensorData: sensorDataStore.getState(),
+      sensorDataRangeStore: sensorDataRangeStore.getState(),
     };
   }
 
@@ -25,6 +27,7 @@ class AppContainer extends Component {
                 filter={this.state.filter}
                 sensors={this.state.sensors}
                 sensorData={this.state.sensorData}
+                sensorDataRangeStore={this.state.sensorDataRangeStore}
             />;
   }
 }
