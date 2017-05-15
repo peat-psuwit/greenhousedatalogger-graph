@@ -11,8 +11,15 @@ function getDataSet(sensorData, filter) {
         .map(function(currentSensorData, sensorID) {
             var data = currentSensorData.toSeq()
                 .filter((value, key) =>
-                    (filter.getStartDate().isBefore(value.timestamp) &&
-                    filter.getEndDate().isAfter(value.timestamp))
+                    (
+                        (
+                            filter.getStartDate().isBefore(value.timestamp) ||
+                            filter.getStartDate().isSame(value.timestamp)
+                        ) && (
+                            filter.getEndDate().isAfter(value.timestamp) ||
+                            filter.getEndDate().isSame(value.timestamp)
+                        )
+                    )
                 ).map((value, key) => ({
                     x: value.timestamp,
                     y: value[filter.getSelectedField()]
