@@ -4,6 +4,7 @@ import ActionTypes from './AppActionTypes.js';
 import dispatcher from './AppDispatcher.js';
 
 import Filter from '../utils/Filter.js';
+import sensorDataRangeStore from './SensorDataRangeStore.js';
 
 class FilterStore extends ReduceStore {
     getInitialState() {
@@ -27,6 +28,25 @@ class FilterStore extends ReduceStore {
 
             case ActionTypes.SET_FILTER_SELECTED_FIELD:
                 return state.setSelectedField(action.selectedField);
+
+            case ActionTypes.SENSOR_DATA_RECEIVED:
+                dispatcher.waitFor([sensorDataRangeStore.getDispatchToken()]);
+
+                var dataRange = sensorDataRangeStore.getState();
+
+                if (!state.getStartDate())
+                    state = state.setStartDate(dataRange.minimumDate);
+
+                if (!state.getEndDate()) {
+                    var endDate = dataRange.maximumDate.clone().subtract(1, 'day');
+
+                    if (endDate.diff(state.getStartDate(), 'day') < 1)
+                        endDate = dataRange.maximumDate;
+
+                    state = state.setEndDate(endDate);
+                }
+
+                return state;
 
             default:
                 return state;
