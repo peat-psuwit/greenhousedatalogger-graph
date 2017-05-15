@@ -19,7 +19,7 @@ const SensorAPI = {
             url.searchParams.set('cursor', nextPageToken);
 
         return fetchJsonp(url.href, {
-            timeout: 30000
+            timeout: 60000
         }).then(convertToJson);
     }
 };
@@ -35,7 +35,7 @@ const GhRecordingAPI = {
             url.searchParams.set('cursor', nextPageToken);
 
         return fetchJsonp(url.href, {
-            timeout: 30000
+            timeout: 60000
         }).then(convertToJson);
     }
 };
