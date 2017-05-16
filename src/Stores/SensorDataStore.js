@@ -8,6 +8,9 @@ import dispatcher from './AppDispatcher.js';
 import GhRecordingDataManager from '../data_manager/GhRecordingDataManager.js';
 import PartiallyLoadObject from '../utils/PartiallyLoadObject.js';
 
+import sensorDataRangeStore from './SensorDataRangeStore.js';
+import filterStore from './FilterStore.js';
+
 var lastNextPageToken = null;
 
 class SensorDataStore extends ReduceStore {
@@ -39,11 +42,49 @@ class SensorDataStore extends ReduceStore {
                     state = state.setLoading(false).setDataComplete(true);
                 }
                 else {
-                    //TODO: check if it includes the whole Filter
-                    state = state.setLoading(false);
+                    lastNextPageToken = action.nextPageToken;
+
+                    dispatcher.waitFor([
+                        sensorDataRangeStore.getDispatchToken(),
+                        filterStore.getDispatchToken()
+                    ]);
+
+                    {
+                        let dataRange = sensorDataRangeStore.getState();
+                        let filter = filterStore.getState();
+
+                        if (dataRange.maximumDate.diff(filter.getEndDate(), 'day') < 1) {
+                            GhRecordingDataManager.requestSensorData(100, action.nextPageToken);
+                            state = state.setLoading(true);
+                        }
+                        else {
+                            state = state.setLoading(false);
+                        }
+                    }
                 }
 
                 return state;
+
+            case ActionTypes.SET_FILTER_END_DATE:
+                dispatcher.waitFor([
+                    sensorDataRangeStore.getDispatchToken(),
+                    filterStore.getDispatchToken()
+                ]);
+
+                if (state.isLoading())
+                    return state;
+
+                {
+                    let dataRange = sensorDataRangeStore.getState();
+                    let filter = filterStore.getState();
+
+                    if (dataRange.maximumDate.diff(filter.getEndDate(), 'day') < 1) {
+                        GhRecordingDataManager.requestSensorData(100, lastNextPageToken);
+                        return state.setLoading(true);
+                    }
+
+                    return state;
+                }
 
             default:
                 return state;
