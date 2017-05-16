@@ -18,6 +18,14 @@ export default class OptionBar extends Component {
 		Actions.setFilterEndDate(dateMoment);
 	}
 
+	onSelectAll() {
+		Actions.setFilterAddAllSensors();
+	}
+
+	onUnselectAll() {
+		Actions.setFilterRemoveAllSensors();
+	}
+
 	render() {
 		return <Toolbar>
 			<ToolbarRow>
@@ -73,8 +81,14 @@ export default class OptionBar extends Component {
 					</DateField>
 				</ToolbarSection>
 				<ToolbarSection align="end">
-					<Button raised accent>Select all</Button>
-					<Button raised accent>Deselect all</Button>
+					<Button raised accent
+							onClick={() => {this.onSelectAll()}} >
+						Select all
+					</Button>
+					<Button raised accent
+							onClick={() => {this.onUnselectAll()}} >
+						Deselect all
+					</Button>
 				</ToolbarSection>
 			</ToolbarRow>
 		</Toolbar>
