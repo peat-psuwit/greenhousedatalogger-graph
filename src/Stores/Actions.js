@@ -16,6 +16,18 @@ const Actions = {
         });
     },
 
+    setFilterAddAllSensors() {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_ADD_ALL_SENSORS
+        });
+    },
+
+    setFilterRemoveAllSensors() {
+        dispatcher.dispatch({
+            type: ActionTypes.SET_FILTER_REMOVE_ALL_SENSORS
+        });
+    },
+
     setFilterStartDate(startDate) {
         dispatcher.dispatch({
             type: ActionTypes.SET_FILTER_START_DATE,

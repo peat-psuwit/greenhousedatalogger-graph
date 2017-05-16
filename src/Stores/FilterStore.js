@@ -5,6 +5,7 @@ import dispatcher from './AppDispatcher.js';
 
 import Filter from '../utils/Filter.js';
 import sensorDataRangeStore from './SensorDataRangeStore.js';
+import sensorStore from './SensorStore.js';
 
 class FilterStore extends ReduceStore {
     getInitialState() {
@@ -18,6 +19,16 @@ class FilterStore extends ReduceStore {
 
             case ActionTypes.SET_FILTER_REMOVE_SENSOR:
                 return state.removeSensors([action.sensor]);
+
+            case ActionTypes.SET_FILTER_ADD_ALL_SENSORS:
+                dispatcher.waitFor([sensorStore.getDispatchToken()]);
+                return state.addSensors(sensorStore.getState().getValue()
+                    .map((sensorData) => sensorData.id).toArray());
+
+            case ActionTypes.SET_FILTER_REMOVE_ALL_SENSORS:
+                dispatcher.waitFor([sensorStore.getDispatchToken()]);
+                return state.removeSensors(sensorStore.getState().getValue()
+                    .map((sensorData) => sensorData.id).toArray());
 
             case ActionTypes.SET_FILTER_START_DATE:
                 //TODO: check with SensorDataRangeStore
