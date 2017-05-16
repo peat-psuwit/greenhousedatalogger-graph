@@ -3,13 +3,26 @@ import { Line } from 'react-chartjs-2';
 import randomColor from 'randomcolor';
 
 export default class Grapher extends Component {
+    constructor() {
+        super();
+
+        this._colorCache = {};
+    }
+
+    getColorForSensor(sensorID) {
+        if (!this._colorCache[sensorID])
+            this._colorCache[sensorID] = randomColor();
+
+        return this._colorCache[sensorID];
+    }
+
     getDataSet(sensorData, filter) {
         if (!filter.getStartDate() || !filter.getEndDate())
             return [];
 
         return sensorData.toSeq()
             .filter((value, key) => filter.getSensors().has(key))
-            .map(function(currentSensorData, sensorID) {
+            .map((currentSensorData, sensorID) => {
                 var data = currentSensorData.toSeq()
                     .filter((value, key) =>
                         (
@@ -28,7 +41,7 @@ export default class Grapher extends Component {
 
                 return {
                     label: sensorID,
-                    borderColor: randomColor(), //TODO: cache color
+                    borderColor: this.getColorForSensor(sensorID),
                     data: data
                 };
             }).toArray();
