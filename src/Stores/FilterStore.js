@@ -38,9 +38,9 @@ class FilterStore extends ReduceStore {
                     state = state.setStartDate(dataRange.minimumDate);
 
                 if (!state.getEndDate()) {
-                    var endDate = dataRange.maximumDate.clone().subtract(1, 'day');
+                    var endDate = dataRange.minimumDate.clone().add(1, 'day');
 
-                    if (endDate.diff(state.getStartDate(), 'day') < 1)
+                    if (endDate.isAfter(dataRange.maximumDate))
                         endDate = dataRange.maximumDate;
 
                     state = state.setEndDate(endDate);
