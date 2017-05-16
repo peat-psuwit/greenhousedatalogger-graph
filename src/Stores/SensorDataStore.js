@@ -1,5 +1,6 @@
 import {ReduceStore} from 'flux/utils';
 import Immutable from 'immutable';
+import moment from 'moment';
 
 import ActionTypes from './AppActionTypes.js';
 import Actions from './Actions.js';
@@ -33,6 +34,10 @@ class SensorDataStore extends ReduceStore {
                 if (action.sensorData)
                     state = state.updateValue(function (value) {
                         var newData = Immutable.Seq(action.sensorData)
+                            .map((value) => {
+                                value.timestamp = moment(value.timestamp);
+                                return value;
+                            })
                             .groupBy((value) => value.sensorId);
 
                         return value.mergeWith((oldVal, newVal) => oldVal.concat(newVal), newData);
