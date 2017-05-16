@@ -32,26 +32,46 @@ export default class Filter {
         return this._selectedField;
     }
 
-    addSensor(sensor) {
-        if (this._sensors.has(sensor))
+    addSensors(sensorsToAdd) {
+        var hasModified = false;
+        var newSensors = this._sensors.withMutations((newSensors) => {
+            sensorsToAdd.forEach((sensorToAdd) => {
+                if (!this._sensors.has(sensorToAdd)) {
+                    hasModified = true;
+                    newSensors.add(sensorToAdd);
+                }
+            });
+        });
+
+        if (!hasModified)
             return this;
 
         return new Filter(
             SECRET,
-            this._sensors.add(sensor),
+            newSensors,
             this._startDate,
             this._endDate,
             this._selectedField
         );
     }
 
-    removeSensor(sensor) {
-        if (!this._sensors.has(sensor))
+    removeSensors(sensorsToRemove) {
+        var hasModified = false;
+        var newSensors = this._sensors.withMutations((newSensors) => {
+            sensorsToRemove.forEach((sensorToRemove) => {
+                if (this._sensors.has(sensorToRemove)) {
+                    hasModified = true;
+                    newSensors.delete(sensorToRemove);
+                }
+            });
+        });
+
+        if (!hasModified)
             return this;
 
         return new Filter(
             SECRET,
-            this._sensors.remove(sensor),
+            newSensors,
             this._startDate,
             this._endDate,
             this._selectedField

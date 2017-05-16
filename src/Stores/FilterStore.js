@@ -14,10 +14,10 @@ class FilterStore extends ReduceStore {
     reduce(state, action) {
         switch (action.type) {
             case ActionTypes.SET_FILTER_ADD_SENSOR:
-                return state.addSensor(action.sensor);
+                return state.addSensors([action.sensor]);
 
             case ActionTypes.SET_FILTER_REMOVE_SENSOR:
-                return state.removeSensor(action.sensor);
+                return state.removeSensors([action.sensor]);
 
             case ActionTypes.SET_FILTER_START_DATE:
                 //TODO: check with SensorDataRangeStore
