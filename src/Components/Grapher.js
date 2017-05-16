@@ -42,6 +42,7 @@ export default class Grapher extends Component {
                 return {
                     label: sensorID,
                     borderColor: this.getColorForSensor(sensorID),
+                    lineTension: 0.1,
                     data: data
                 };
             }).toArray();
