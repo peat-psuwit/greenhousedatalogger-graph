@@ -75,6 +75,12 @@ class SensorDataStore extends ReduceStore {
 
                 return state;
 
+            case ActionTypes.SENSOR_DATA_ERROR:
+                console.error(action.error);
+                return state
+                    .setLoading(false)
+                    .setError(action.error);
+
             case ActionTypes.SET_FILTER_END_DATE:
                 dispatcher.waitFor([
                     sensorDataRangeStore.getDispatchToken(),

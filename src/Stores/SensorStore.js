@@ -41,6 +41,12 @@ class SensorStore extends ReduceStore {
 
                 return state;
 
+            case ActionTypes.SENSOR_LIST_ERROR:
+                console.error(action.error);
+                return state
+                    .setLoading(false)
+                    .setError(action.error);
+
             default:
                 return state;
         }

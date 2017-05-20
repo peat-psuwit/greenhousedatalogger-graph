@@ -6,8 +6,10 @@ const GhRecordingDataManager = {
         GhRecordingAPI.listData(limit, nextPageToken)
             .then(function(jsonResponse) {
                 Actions.receivedSensorData(jsonResponse.items, jsonResponse.nextPageToken);
+            })
+            .catch(function(e) {
+                Actions.errorInSensorDataRequest(e);
             });
-            //TODO: handle error
     }
 };
 

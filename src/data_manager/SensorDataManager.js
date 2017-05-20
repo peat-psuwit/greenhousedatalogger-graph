@@ -6,8 +6,10 @@ const SensorDataManager = {
         SensorAPI.list(limit, nextPageToken)
             .then(function(jsonResponse) {
                 Actions.receivedSensorList(jsonResponse.items, jsonResponse.nextPageToken);
+            })
+            .catch(function(e) {
+                Actions.errorInSensorListRequest(e);
             });
-            //TODO: handle error
     }
 };
 
