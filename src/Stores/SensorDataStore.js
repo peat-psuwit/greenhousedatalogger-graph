@@ -23,6 +23,19 @@ class SensorDataStore extends ReduceStore {
         return PartiallyLoadObject.newInstance(Immutable.Map());
     }
 
+    loadMoreDataIfNeeded(state) {
+        let dataRange = sensorDataRangeStore.getState();
+        let filter = filterStore.getState();
+
+        if (dataRange.maximumDate.diff(filter.getEndDate(), 'day') < 1) {
+            GhRecordingDataManager.requestSensorData(100, lastNextPageToken);
+            return state.setLoading(true);
+        }
+        else {
+            return state.setLoading(false);
+        }
+    }
+
     reduce(state, action) {
         switch (action.type) {
             case ActionTypes.SENSOR_DATA_REQUEST:
@@ -54,18 +67,7 @@ class SensorDataStore extends ReduceStore {
                         filterStore.getDispatchToken()
                     ]);
 
-                    {
-                        let dataRange = sensorDataRangeStore.getState();
-                        let filter = filterStore.getState();
-
-                        if (dataRange.maximumDate.diff(filter.getEndDate(), 'day') < 1) {
-                            GhRecordingDataManager.requestSensorData(100, action.nextPageToken);
-                            state = state.setLoading(true);
-                        }
-                        else {
-                            state = state.setLoading(false);
-                        }
-                    }
+                    state = this.loadMoreDataIfNeeded(state);
                 }
 
                 return state;
@@ -79,17 +81,7 @@ class SensorDataStore extends ReduceStore {
                 if (state.isLoading())
                     return state;
 
-                {
-                    let dataRange = sensorDataRangeStore.getState();
-                    let filter = filterStore.getState();
-
-                    if (dataRange.maximumDate.diff(filter.getEndDate(), 'day') < 1) {
-                        GhRecordingDataManager.requestSensorData(100, lastNextPageToken);
-                        return state.setLoading(true);
-                    }
-
-                    return state;
-                }
+                return this.loadMoreDataIfNeeded(state);
 
             default:
                 return state;
