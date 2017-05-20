@@ -24,6 +24,9 @@ class SensorDataStore extends ReduceStore {
     }
 
     loadMoreDataIfNeeded(state) {
+        if (state.isDataComplete())
+            return state;
+
         let dataRange = sensorDataRangeStore.getState();
         let filter = filterStore.getState();
 
