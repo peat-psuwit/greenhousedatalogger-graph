@@ -3,6 +3,8 @@ import { FormField, Radio } from 'react-mdc-web/lib';
 
 import Actions from '../Stores/Actions.js';
 
+import '../css/FieldSelectorBar.css';
+
 const FIELDS = [
     {
         fieldName: 'temperature',
@@ -23,11 +25,13 @@ export default class FieldSelectorBar extends Component {
 
     render() {
         return (
-            <div>
+            <div className="fieldselectorbar">
                 Display:
                 {
                     FIELDS.map((field) =>
-                        <FormField id={'selectedField-' + field.fieldName} key={field.fieldName}>
+                        <FormField id={'selectedField-' + field.fieldName}
+                            key={field.fieldName}
+                            className="fieldselectorbar-formfield">
                             <Radio name="selectedField" value={field.fieldName}
                                 checked={this.props.filter.getSelectedField() === field.fieldName}
                                 onChange={this.handleOptionChange} />
