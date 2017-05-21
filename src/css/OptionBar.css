@@ -1,0 +1,11 @@
+.optionbar-toolbarsection > * {
+    margin-right: 10px;
+}
+
+.optionbar-toolbarsection > *:last-child {
+    margin-right: 0px;
+}
+
+.optionbar-datefield-fix {
+    color: black;
+}
