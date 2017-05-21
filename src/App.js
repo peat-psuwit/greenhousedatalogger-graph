@@ -5,7 +5,7 @@ import TitleBar from './Components/TitleBar.js';
 import GraphArea from './Components/GraphArea.js';
 import Selector from './Components/Selector.js';
 
-import './App.css';
+import './css/App.css';
 
 class App extends Component {
   render() {
