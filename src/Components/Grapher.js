@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import randomColor from 'randomcolor';
 
+import '../css/Grapher.css';
+
 export default class Grapher extends Component {
     constructor() {
         super();
@@ -66,8 +68,9 @@ export default class Grapher extends Component {
         };
 
         return (
-            <Line data={data} options={options}
-                height={320} />
+            <div className="grapher-wrapper">
+                <Line data={data} options={options} />
+            </div>
         );
     }
 }
